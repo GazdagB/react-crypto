@@ -1,6 +1,7 @@
 import './App.css';
 import { useEffect,useState } from 'react';
 import axios from 'axios';
+import Coin from './components/Coin';
 
 
 function App() {
@@ -15,18 +16,35 @@ function App() {
   },[])
 
   //git testing ....again
+
+  //Írunk egy függvényt amely megnézi hogy a coinList státusznan  eltárolt valuták közül van-e eggyezés azzal amit beírtam az input mezőbe
+
+  const searchedCoin = coinList.filter(coin => {
+
+    return coin.name.toLowerCase().includes(search.toLowerCase())
+  })
+
   return (
 
    
 
-    <div className="crypto-header">
+    <div className="app">
+      <div className='crypto-header'>
       <h1>Crypto Search</h1>
       <input type="text" placeholder='🪙 Bitcoin...' onChange={(e)=>{
         setSearch(e.target.value)
       }} />
+      </div>
+    
 
       <div className='crypto-container'>
-
+      {
+        searchedCoin.map((coin,idx)=>{
+          return <Coin key={idx} name={coin.name
+          } icon={coin.icon} price={coin.price.toFixed(3)} symbol={coin.symbol
+          }/>
+        })
+      }
       </div>
 
     </div>
